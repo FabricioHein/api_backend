@@ -1,9 +1,10 @@
-class ProdutosController < ApplicationController
+class Api::V1::ProdutosController < ApplicationController
+  before_action :authenticate_api_user!
   before_action :set_produto, only: [:show, :update, :destroy]
 
   # GET /produtos
   def index
-    @produtos = Produto.all
+    @produtos = current_api_user.produtos.all
 
     render json: @produtos
   end
@@ -15,10 +16,10 @@ class ProdutosController < ApplicationController
 
   # POST /produtos
   def create
-    @produto = Produto.new(produto_params)
+    @produto = current_api_user.produtos.new(produto_params)
 
     if @produto.save
-      render json: @produto, status: :created, location: @produto
+      render json: @produto, status: :created, location: api_produto_url(@produto)
     else
       render json: @produto.errors, status: :unprocessable_entity
     end
@@ -41,7 +42,7 @@ class ProdutosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_produto
-      @produto = Produto.find(params[:id])
+      @produto = current_api_user.produtos.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

@@ -10,6 +10,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "active_model_serializers", "~> 0.10.12"
 gem "rack-cors", "~> 1.1"
 gem "rubocop", require: false
+gem "active_model_serializers", "~> 0.10.12"
+
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -33,3 +35,5 @@ end
 group :production do
   gem "pg", "~> 1.2"
 end
+
+gem "devise_token_auth", "~> 1.2"
